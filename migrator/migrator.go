@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"strings"
+	//"strings"
 
 	"github.com/itchyny/github-migrator/github"
 	"github.com/itchyny/github-migrator/repo"
@@ -53,6 +53,7 @@ func (m *migrator) Migrate() (err error) {
 		return err
 	}
 	// projects and columns should be imported before issues
+	/*
 	if err = m.migrateProjects(); err != nil {
 		return err
 	}
@@ -64,6 +65,7 @@ func (m *migrator) Migrate() (err error) {
 	} else {
 		m.targetProjects = projects
 	}
+	*/
 	// milestones should be imported before issues
 	if err = m.migrateMilestones(); err != nil {
 		return err
