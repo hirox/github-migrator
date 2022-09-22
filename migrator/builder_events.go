@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html"
 	"math"
+	"os"
 	"strings"
 	"time"
 
@@ -115,7 +116,10 @@ func (b *builder) buildImportEventGroupBody(eg []*github.Event) (string, error) 
 		case "closed":
 			if !merged {
 				if b.pullReq == nil {
-					actions = append(actions, "closed the issue")
+					token_user := os.Getenv("GITHUB_MIGRATOR_TARGET_API_TOKEN_USER")
+					if token_user != b.getUserLogin(e.Actor) {
+						actions = append(actions, "closed the issue")
+					}
 				} else {
 					actions = append(actions, "closed the pull request without merging")
 				}
