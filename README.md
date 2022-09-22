@@ -9,6 +9,7 @@ This is especially useful to move a repository from GitHub Enterprise to github.
 export GITHUB_MIGRATOR_SOURCE_API_TOKEN=xxx
 export GITHUB_MIGRATOR_SOURCE_API_ENDPOINT=http://localhost/api/v3 # This might be the endpoint of GitHub Enterprise
 export GITHUB_MIGRATOR_TARGET_API_TOKEN=yyy
+export GITHUB_MIGRATOR_TARGET_API_TOKEN_USER=zzz # Simplify comments by specifying a token user
 # export GITHUB_MIGRATOR_TARGET_API_ENDPOINT=https://api.github.com # No need to specify the endpoint of github.com
 # export GITHUB_MIGRATOR_TARGET_PROXY_URL=http://proxyIp:proxyPort # If you need proxy URL
 go run . [old-owner]/[source] [new-owner]/[target]
