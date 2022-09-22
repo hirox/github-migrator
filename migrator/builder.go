@@ -3,6 +3,7 @@ package migrator
 import (
 	"fmt"
 	"html"
+	"os"
 	"strings"
 	"time"
 
@@ -226,6 +227,11 @@ func (b *builder) buildPullRequestRefs() string {
 }
 
 func (b *builder) buildUserActionBody(user *github.User, action, body string) string {
+	token_user := os.Getenv("GITHUB_MIGRATOR_TARGET_API_TOKEN_USER")
+	if token_user == b.getUserLogin(user) && action == "commented" {
+		return b.commentFilters.apply(body)
+	}
+
 	var suffix string
 	if body != "" {
 		suffix = "\n\n" + b.commentFilters.apply(body)
