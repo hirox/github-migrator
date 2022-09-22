@@ -81,10 +81,13 @@ func (b *builder) buildImportBody() string {
 	if b.issue.Body != "" {
 		suffix = "\n\n" + b.commentFilters.apply(b.issue.Body)
 	}
-	action := fmt.Sprintf("created the original %s<br>\n", b.issue.Type())
+	action := fmt.Sprintf("created the original %s", b.issue.Type())
 	if b.pullReq != nil {
+		action += "<br>\n"
 		action += b.buildCompareLinkTag(b.targetRepo, b.pullReq.Base.SHA, b.pullReq.Head.SHA) +
 			" " + b.buildPullRequestRefs() + "<br>\n"
+	} else {
+		action += ", "
 	}
 	action += "imported from " + buildIssueLinkTag(b.sourceRepo, b.issue)
 	tableRows := [][]string{
@@ -262,7 +265,7 @@ func (b *builder) buildTable(width int, xss ...[]string) string {
 			if i == len(xs)-1 && len(xs) < width {
 				s.WriteString(fmt.Sprintf("  <td colspan=\"%d\">\n", width-i))
 			} else if i == 0 && len(xs) == 2 && strings.HasPrefix(x, `<img src="`) && !strings.Contains(x, "\n") {
-				s.WriteString("  <td width=\"60\">\n")
+				s.WriteString("  <td>\n")
 			} else {
 				s.WriteString("  <td>\n")
 			}
